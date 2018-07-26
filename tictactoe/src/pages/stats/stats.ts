@@ -36,7 +36,9 @@ export class StatsPage {
 	levels: string[] = ["easy", "medium", "hard"]
 
 	public pieChartLabels:string[] = ['win', 'lose'];
-	public pieChartData:number[] = [350, 450];
+	public pieChartDataEasy:number[] = [0, 0];
+	public pieChartDataMedium:number[] = [0, 0];
+	public pieChartDataHard:number[] = [0, 0];
 	public pieChartType:string = 'pie';
 	public pieChartColorsBackGround: string[]  = ["#ff0000", "#8ee000"];
 

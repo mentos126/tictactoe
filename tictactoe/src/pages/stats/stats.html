@@ -12,10 +12,7 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
-
 
 	<ion-card>
 		<ion-card-header>
@@ -26,11 +23,7 @@
 			<br> Lost: {{ easyLost }}
 			<br>
 			<div style="display: block">
-				<canvas baseChart
-					[data]="pieChartData"
-					[labels]="pieChartLabels"
-					[chartType]="pieChartType"
-					(chartHover)="chartHovered($event)"
+				<canvas baseChart [data]="pieChartDataEasy" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
 				    (chartClick)="chartClicked($event)"></canvas>
 			</div>
 
@@ -44,6 +37,11 @@
 		<ion-card-content>
 			Win: {{ mediumWin }}
 			<br> Lost: {{ mediumLost }}
+			<br>
+			<div style="display: block">
+				<canvas baseChart [data]="pieChartDataMedium" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+				    (chartClick)="chartClicked($event)"></canvas>
+			</div>
 		</ion-card-content>
 	</ion-card>
 
@@ -54,6 +52,11 @@
 		<ion-card-content>
 			Win: {{ hardWin }}
 			<br> Lost: {{ hardLost }}
+			<br>
+			<div style="display: block">
+				<canvas baseChart [data]="pieChartDataHard" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+				    (chartClick)="chartClicked($event)"></canvas>
+			</div>
 		</ion-card-content>
 	</ion-card>
 
