@@ -1,0 +1,49 @@
+page-game {
+  text-align: center;
+
+  button {
+    width: 31%;
+    //height: 31%;
+  }
+
+  .cardScoreHeader{
+    color: white;
+    font-weight: bold;
+  }
+
+  .cardScore {
+    background-color: #488aff;
+    color: white;
+  }
+
+  .cardWin1Content{
+    background-color: red;
+    color: white;
+  }
+
+  .cardWin2Content{
+    background-color: green;
+    color: white;
+  }
+
+  table {
+    width:100%;
+  }
+  table, td {
+      border-collapse: collapse;
+  }
+  td {
+      text-align: center;
+  }
+
+  .promptPlayer1{
+    color: red;
+    font-weight: bold;
+  }
+
+  .promptPlayer2{
+    color: green;
+    font-weight: bold;
+  }
+
+}
