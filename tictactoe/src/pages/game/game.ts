@@ -46,7 +46,7 @@ export class GamePage {
 		this.newGame();
 	}
 
-	setScoreStorage(name: string, win: number, lost: number) {
+	setScoreStorage(name: string, win: number, lost: number): void {
 		this.nativeStorage.setItem(name, {
 				win: win,
 				lost: lost
@@ -57,7 +57,7 @@ export class GamePage {
 			);
 	}
 
-	getScoreStorage(name: string) {
+	getScoreStorage(name: string): void {
 		this.nativeStorage.getItem(name)
 			.then(
 				data => {
@@ -72,7 +72,7 @@ export class GamePage {
 		console.log('ionViewDidLoad GamePage');
 	}
 
-	changePlayerPlaying() {
+	changePlayerPlaying(): void {
 		if (this.playerPlaying == 1) {
 			this.playerPlaying = 2;
 			this.printPlayer = 1;
@@ -82,7 +82,7 @@ export class GamePage {
 		}
 	}
 
-	changeFirstPlayer() {
+	changeFirstPlayer(): void {
 		if (this.firstPlayer == 1) {
 			this.firstPlayer = 2;
 		} else {
@@ -91,7 +91,7 @@ export class GamePage {
 	}
 
 	//TODO metre un verrou pour le prochain click
-	clickMorpion(i) {
+	clickMorpion(i): void {
 		if (!this.verrou) {
 			if (!this.end) {
 				if (this.morpion[i].printed == 0) {
@@ -130,6 +130,51 @@ export class GamePage {
 				}
 			}
 		}
+	}
+
+	isWinDeepMorpion(mp : any[]): boolean{
+		let res: boolean = false;
+
+		for (let i: number = 0; i < 3; i++) {
+			let one: boolean = mp[0 + i * 3].printed == mp[1 + i * 3].printed;
+			let two: boolean = mp[0 + i * 3].printed == mp[2 + i * 3].printed;
+			let three: boolean = mp[0 + i * 3].printed != 0;
+			if (one && two && three) {
+				res = true;
+				break;
+			}
+		}
+
+		if (!res) {
+			for (let i: number = 0; i < 3; i++) {
+				let one: boolean = mp[0 + i].printed == mp[3 + i].printed;
+				let two: boolean = mp[0 + i].printed == mp[6 + i].printed;
+				let three: boolean = mp[0 + i].printed != 0;
+				if (one && two && three) {
+					res = true;
+					break;
+				}
+			}
+
+			if (!res) {
+				let one: boolean = mp[0].printed == mp[4].printed;
+				let two: boolean = mp[0].printed == mp[8].printed;
+				let three: boolean = mp[0].printed != 0;
+				if (one && two && three) {
+					res = true;
+				}
+
+				if (!res) {
+					one = mp[2].printed == mp[4].printed;
+					two = mp[2].printed == mp[6].printed;
+					three = mp[2].printed != 0;
+					if (one && two && three) {
+						res = true;
+					}
+				}
+			}
+		}
+		return res;
 	}
 
 	isWin(): boolean {
@@ -177,7 +222,7 @@ export class GamePage {
 		return res;
 	}
 
-	addScorePlayer() {
+	addScorePlayer(): void {
 		if (this.playerPlaying == 1) {
 			this.scorePlayer1++;
 			switch (this.botLevel) {
@@ -185,15 +230,16 @@ export class GamePage {
 					break;
 				case 1:
 					this.getScoreStorage("easy");
-					this.setScoreStorage("easy",this.scoreWin+1,this.scoreLost);
+					this.setScoreStorage("easy", this.scoreWin + 1, this.scoreLost);
 					break;
 				case 2:
 					this.getScoreStorage("medium");
-					this.setScoreStorage("medium",this.scoreWin+1,this.scoreLost);
+					this.setScoreStorage("medium", this.scoreWin + 1, this.scoreLost);
 					break;
 				case 3:
 					this.getScoreStorage("hard");
-					this.setScoreStorage("hard",this.scoreWin+1,this.scoreLost);					break;
+					this.setScoreStorage("hard", this.scoreWin + 1, this.scoreLost);
+					break;
 				default:
 					console.log("case not supported!!!");
 			}
@@ -202,24 +248,25 @@ export class GamePage {
 			switch (this.botLevel) {
 				case 0:
 					break;
-					case 1:
+				case 1:
 					this.getScoreStorage("easy");
-					this.setScoreStorage("easy",this.scoreWin,this.scoreLost+1);
+					this.setScoreStorage("easy", this.scoreWin, this.scoreLost + 1);
 					break;
 				case 2:
 					this.getScoreStorage("medium");
-					this.setScoreStorage("medium",this.scoreWin,this.scoreLost+1);
+					this.setScoreStorage("medium", this.scoreWin, this.scoreLost + 1);
 					break;
 				case 3:
 					this.getScoreStorage("hard");
-					this.setScoreStorage("hard",this.scoreWin,this.scoreLost+1);					break;
+					this.setScoreStorage("hard", this.scoreWin, this.scoreLost + 1);
+					break;
 				default:
 					console.log("case not supported!!!");
 			}
 		}
 	}
 
-	gameWin() {
+	gameWin(): void {
 		let res: boolean = this.isWin();
 		if (res) {
 			this.addScorePlayer();
@@ -229,7 +276,7 @@ export class GamePage {
 		this.win = res;
 	}
 
-	gameEnd() {
+	gameEnd(): void {
 
 		let temp: boolean = true;
 		for (let piece of this.morpion) {
@@ -241,7 +288,7 @@ export class GamePage {
 		this.end = temp;
 	}
 
-	newGame() {
+	newGame(): void {
 		this.playerPlaying = this.firstPlayer;
 		this.end = false;
 		this.win = false;
@@ -273,7 +320,15 @@ export class GamePage {
 
 	}
 
-	IAEasy() {
+	IAend() : void{
+		this.gameWin();
+		if (!this.end) {
+			this.gameEnd();
+		}
+		this.changePlayerPlaying();
+	}
+
+	IAEasy(): void {
 		let temp: any[];
 		temp = new Array();
 		for (let piece of this.morpion) {
@@ -283,16 +338,134 @@ export class GamePage {
 		}
 		let res: number = Math.floor(Math.random() * temp.length);
 		this.morpion[temp[res].i].printed = this.playerPlaying;
-
-		this.gameWin();
-		if (!this.end) {
-			this.gameEnd();
-		}
-		this.changePlayerPlaying();
+		this.IAend();
 	}
 
-	IAMedium() {}
-	IAHard() {}
+	IAMedium(): void {
 
+		//creation d'un nouveau tableau de morpion et insertion de chaque piece
+		let secondaryMorpion: any[];
+		secondaryMorpion = new Array();
+		for (let piece of this.morpion) {
+			let secondaryPiece: any = Object.assign({}, piece);
+			secondaryPiece.level = 0;
+			secondaryMorpion.push(secondaryPiece);
+		}
+
+		//recherche de chaque solution de niveau 0
+		let results: any[];
+		results = new Array();
+		for (let piece of secondaryMorpion) {
+			if(piece.printed == 0){
+				let secondaryPiece: any = Object.assign({}, piece);
+				results.push(this.checkResults(secondaryMorpion, secondaryPiece));
+			}
+		}
+
+		for(let i of results){
+			if(i == {}){
+				console.log("LOL");
+			}
+			console.log(i);
+		}
+		//TODO modification
+		//this.IAend();
+
+	}
+
+	isDeepEnd(mp:any) : boolean{
+		let res:boolean = true;
+		for(let piece of mp){
+			if(piece.printed == 0){
+				res = false;
+				break;
+			}
+		}
+		return res;
+	}
+
+	checkResults(inMorpion: any, inPiece: any): any {
+		 let secondaryMorpion: any[];
+		secondaryMorpion = new Array();
+		for (let piece of inMorpion) {
+			let secondaryPiece: any = Object.assign({}, piece);
+			if(piece.i == inPiece.i){
+				if(inPiece.level%2 == 0){
+					secondaryPiece.printed = 2;
+				}else{
+					secondaryPiece.printed = 1;
+				}
+			}
+			secondaryPiece.level = piece.level + 1;
+			secondaryMorpion.push(secondaryPiece);
+		}
+
+		if(this.isWinDeepMorpion(secondaryMorpion )){
+			if(inPiece.level%2 == 0){
+				return {
+					level : inPiece.level,
+					isWin : false,
+					isEnd : false
+				};
+			}else{
+				return {
+					level : inPiece.level,
+					isWin : true,
+					isEnd : false
+				};
+			}
+		}else if(this.isDeepEnd(secondaryMorpion)){
+			return {
+				level : inPiece.level,
+				isWin : false,
+				isEnd : true
+			};
+		}else{
+			let results : any[];
+			let wins : any[];
+			let losts : any[];
+			results = new Array();
+			wins = new Array();
+			losts = new Array();
+			for (let piece of secondaryMorpion) {
+				if(piece.printed == 0){
+					let secondaryPiece: any = Object.assign({}, piece);
+					results.push(this.checkResults(secondaryMorpion, secondaryPiece));
+				}
+			}
+			for(let ress of results){
+				if(ress.isWin){
+					return {
+						level : inPiece.level,
+						isWin : true,
+						isEnd : false
+					};
+					break;
+				}
+			}
+			return {
+				level : inPiece.level,
+				isWin : false,
+				isEnd : false
+			};
+
+		}
+
+		console.log("inPiece")
+		console.log(inPiece)
+		console.log("secondaryMorpion")
+		console.log(secondaryMorpion)
+
+		return {};
+	}
+
+
+
+
+
+	IAHard(): void {
+		//LOL
+		this.IAMedium();
+	}
 
 }
