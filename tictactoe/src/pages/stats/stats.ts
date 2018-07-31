@@ -35,20 +35,21 @@ export class StatsPage {
 	hardLost: number = 0;
 	levels: string[] = ["easy", "medium", "hard"]
 
-	public pieChartLabels:string[] = ['win', 'lose'];
-	public pieChartDataEasy:number[] = [0, 0];
-	public pieChartDataMedium:number[] = [0, 0];
-	public pieChartDataHard:number[] = [0, 0];
-	public pieChartType:string = 'pie';
-	public pieChartColorsBackGround: string[]  = ["#ff0000", "#8ee000"];
+	pieChartLabels:string[] = ['win', 'lose'];
+	pieChartDataEasy:number[] = [0, 0];
+	pieChartDataMedium:number[] = [0, 0];
+	pieChartDataHard:number[] = [0, 0];
+	pieChartType:string = 'pie';
+	pieChartColorsBackGround: string[]  = ["#ff0000", "#8ee000"];
+	isDataChecked: boolean = false;
 
 
 	// events
-	public chartClicked(e:any):void {
+	chartClicked(e:any):void {
 	  console.log(e);
 	}
 
-	public chartHovered(e:any):void {
+	chartHovered(e:any):void {
 	  console.log(e);
 	}
 
@@ -71,13 +72,16 @@ export class StatsPage {
 					if (name == "easy") {
 						this.easyWin = data.win;
 						this.easyLost = data.lost
-						this.pieChartData = [this.easyWin, this.easyLost];
+						this.pieChartDataEasy = [this.easyWin, this.easyLost];
 					} else if (name == "medium") {
 						this.mediumWin = data.win;
 						this.mediumLost = data.lost
+						this.pieChartDataMedium = [this.mediumWin, this.mediumLost];
 					} else {
 						this.hardWin = data.win;
 						this.hardLost = data.lost
+						this.pieChartDataHard = [this.hardWin, this.hardLost];
+						this.pieChartDataHard = [10, 50];
 					}
 				},
 				error => console.error(error)
