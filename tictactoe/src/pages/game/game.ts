@@ -343,33 +343,35 @@ export class GamePage {
 
 	IAMedium(): void {
 
-		//creation d'un nouveau tableau de morpion et insertion de chaque piece
-		let secondaryMorpion: any[];
-		secondaryMorpion = new Array();
-		for (let piece of this.morpion) {
-			let secondaryPiece: any = Object.assign({}, piece);
-			secondaryPiece.level = 0;
-			secondaryMorpion.push(secondaryPiece);
-		}
+		this.IAEasy();
 
-		//recherche de chaque solution de niveau 0
-		let results: any[];
-		results = new Array();
-		for (let piece of secondaryMorpion) {
-			if(piece.printed == 0){
-				let secondaryPiece: any = Object.assign({}, piece);
-				results.push(this.checkResults(secondaryMorpion, secondaryPiece));
-			}
-		}
+		// //creation d'un nouveau tableau de morpion et insertion de chaque piece
+		// let secondaryMorpion: any[];
+		// secondaryMorpion = new Array();
+		// for (let piece of this.morpion) {
+		// 	let secondaryPiece: any = Object.assign({}, piece);
+		// 	secondaryPiece.level = 0;
+		// 	secondaryMorpion.push(secondaryPiece);
+		// }
 
-		for(let i of results){
-			if(i == {}){
-				console.log("LOL");
-			}
-			console.log(i);
-		}
-		//TODO modification
-		//this.IAend();
+		// //recherche de chaque solution de niveau 0
+		// let results: any[];
+		// results = new Array();
+		// for (let piece of secondaryMorpion) {
+		// 	if(piece.printed == 0){
+		// 		let secondaryPiece: any = Object.assign({}, piece);
+		// 		results.push(this.checkResults(secondaryMorpion, secondaryPiece));
+		// 	}
+		// }
+
+		// for(let i of results){
+		// 	if(i == {}){
+		// 		console.log("LOL");
+		// 	}
+		// 	console.log(i);
+		// }
+		// //TODO modification
+		// //this.IAend();
 
 	}
 
@@ -422,11 +424,11 @@ export class GamePage {
 			};
 		}else{
 			let results : any[];
-			let wins : any[];
-			let losts : any[];
+			// let wins : any[];
+			// let losts : any[];
 			results = new Array();
-			wins = new Array();
-			losts = new Array();
+			// wins = new Array();
+			// losts = new Array();
 			for (let piece of secondaryMorpion) {
 				if(piece.printed == 0){
 					let secondaryPiece: any = Object.assign({}, piece);
@@ -440,7 +442,6 @@ export class GamePage {
 						isWin : true,
 						isEnd : false
 					};
-					break;
 				}
 			}
 			return {
