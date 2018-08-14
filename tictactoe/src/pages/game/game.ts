@@ -452,10 +452,10 @@ export class GamePage {
 
 		}
 
-		console.log("inPiece")
-		console.log(inPiece)
-		console.log("secondaryMorpion")
-		console.log(secondaryMorpion)
+		console.log("inPiece");
+		console.log(inPiece);
+		console.log("secondaryMorpion");
+		console.log(secondaryMorpion);
 
 		return {};
 	}
